@@ -63,6 +63,9 @@
             }
         </script>
         <script async defer src="{{cdn 'assets/dist/theme-bundle.main.js' resourceHint='preload' as='script'}}" onload="onThemeBundleMain()"></script>
+        <script>
+            console.log("Page/component context", {{#replace '</' (json this)}}<\/{{/replace}});
+        </script>
 
         {{{footer.scripts}}}
     </body>

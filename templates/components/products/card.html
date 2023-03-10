@@ -140,3 +140,31 @@
         {{> components/products/bulk-discount-rates}}
     </div>
 </article>
+
+<script>
+    const getProductData = async (productId) => {
+        const endpointUrl = `https://api.bigcommerce.com/stores/ylaze3dtgo/v3/catalog/products/${productId}`;
+        const headers = new Headers({
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-Auth-Token": "btfy5kj0wezyxjqyqx55qdcz3iwajk7",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+            "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        });
+        const response = await fetch(endpointUrl, { headers: headers, mode: 'no-cors' });
+        const productData = await response.json();
+        return productData.data;
+    }
+    const changeProductImageOnHover = async (card, productId) => {
+        const productData = await getProductData(productId);
+        const { images, image } = productData;
+        const cardImageLink = card.querySelector(".card-image-link");
+        const cardImage = cardImageLink.querySelector(".card-image");
+        await card.addEventListener("mouseover", () => cardImage.src = images[1].url_standard);
+        await card.addEventListener("mouseout", () => cardImage.src = image.url_standard);
+    }
+    const card = document.querySelector("[data-test='card-112']");
+    const productId = card.getAttribute("data-test").split("-")[1];
+    changeProductImageOnHover(card, productId);
+</script>
