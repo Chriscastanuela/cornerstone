@@ -94,31 +94,3 @@ export default class Product extends PageManager {
     }
   }
 }
-
-// Get all product cards
-const productCards = document.querySelectorAll(".card");
-
-// Loop through each card and add a mouseover event listener
-productCards.forEach((card) => {
-  card.addEventListener("mouseover", () => {
-    // Get the product's image container element
-    const imageContainer = card.querySelector(".card-image-container");
-
-    // Get the second image element
-    const secondImage = imageContainer.querySelector("img:nth-of-type(2)");
-
-    // If the second image exists, show it
-    if (secondImage) {
-      secondImage.style.display = "block";
-    }
-  });
-
-  // Add a mouseout event listener to hide the second image
-  card.addEventListener("mouseout", () => {
-    const imageContainer = card.querySelector(".card-image-container");
-    const secondImage = imageContainer.querySelector("img:nth-of-type(2)");
-    if (secondImage) {
-      secondImage.style.display = "none";
-    }
-  });
-});
